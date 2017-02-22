@@ -11,7 +11,6 @@ import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
@@ -28,13 +27,15 @@ public class MainMenuScreen implements Screen{
 
     private Stage stage;
     Table buttonTable;
-    private Image bananaImg;
+    private Image img;
 
-    private final int BANANA_WIDTH = 250;
-    private final int BANANA_HEIGHT = 150;
+    private final int WIDTH_IMG = 250;
+    private final int HEIGHT_IMG = 150;
 
     static final int BUTTON_WIDTH = 200;
     static final int BUTTON_HEIGHT = 50;
+
+    static final int PAD_HEIGHT = 10;
 
     TextButton playButton, practiceButton, loadButton, extensionButton, helpButton, quitButton;
     Color colorNotOver;
@@ -46,14 +47,14 @@ public class MainMenuScreen implements Screen{
      */
     MainMenuScreen(final ApplicationCore app){
         this.app = app;
-        this.stage = new Stage(new FitViewport(app.WIDTH, app.HEIGHT, app.camera));
+        this.stage = new Stage(new FitViewport(ApplicationCore.WIDTH, ApplicationCore.HEIGHT, app.camera));
 
         Gdx.input.setInputProcessor(stage);
 
-        bananaImg = new Image(new Texture(Gdx.files.internal("banana.png")));
-        bananaImg.setWidth(BANANA_WIDTH);
-        bananaImg.setHeight(BANANA_HEIGHT);
-        stage.addActor(bananaImg);
+        img = new Image(new Texture(Gdx.files.internal("banana.png")));
+        img.setWidth(WIDTH_IMG);
+        img.setHeight(HEIGHT_IMG);
+        stage.addActor(img);
 
         //chargement du skin par defaut pour les boutons
         ToLevelScreenListener tlsl = new ToLevelScreenListener();
@@ -113,27 +114,27 @@ public class MainMenuScreen implements Screen{
         });
 
         buttonTable.setPosition(0, Gdx.graphics.getHeight());
-        buttonTable.padTop(stage.getHeight()/2-buttonTable.getMaxHeight());
+        buttonTable.padTop((stage.getHeight()/2)-(6*BUTTON_HEIGHT + 5*PAD_HEIGHT)/2);
         stage.addActor(buttonTable);
 
     }
 
     /**
-     * Initialize a button with the position (x, y) and the width and heigh by default (BUTTON_WIDHT and BUTTON_HEIGHà
+     * Initialize a button at the position (x, y) with width and height by default (BUTTON_WIDTH and BUTTON_HEIGHà
      * @param button the button to initialize
      * @param x the coordinate x of the position
      * @param y the coordinate y of the position
      */
     private void initialize(TextButton button, float x, float y){
         button.setPosition(x, y);
-        buttonTable.add(button).padBottom(10).width(BUTTON_WIDTH).height(BUTTON_HEIGHT);
+        buttonTable.add(button).padBottom(PAD_HEIGHT).width(BUTTON_WIDTH).height(BUTTON_HEIGHT);
         //passe a la ligne de la table pour ajouter le prochain bouton
         buttonTable.row();
     }
 
     @Override
     public void show() {
-        animation(bananaImg);
+        animation(img);
     }
 
     /**
@@ -141,12 +142,12 @@ public class MainMenuScreen implements Screen{
      * @param image the image to move
      */
     private void animation(Image image) {
-        image.setPosition(ApplicationCore.WIDTH / 2 - (BANANA_WIDTH/2), ApplicationCore.HEIGHT + 100);
+        image.setPosition(ApplicationCore.WIDTH / 2 - (WIDTH_IMG /2), ApplicationCore.HEIGHT + 100);
         //anmiation image apparition
         image.addAction(sequence(alpha(0f), scaleTo(.1f,.1f),
                 parallel(fadeIn(2f, Interpolation.pow2),
                         scaleTo(2f, 2f, 2f, Interpolation.pow5),
-                        moveTo(stage.getWidth()/2-(BANANA_WIDTH/2), stage.getHeight()/2-(BANANA_HEIGHT),
+                        moveTo(stage.getWidth()/2-(WIDTH_IMG /2), stage.getHeight()/2-(HEIGHT_IMG),
                                 1.5f, Interpolation.swing))));
     }
 
@@ -174,7 +175,7 @@ public class MainMenuScreen implements Screen{
         pressedButton(quitButton);
 
         app.batch.begin();
-        app.font.draw(app.batch, "Laser Challenge", ApplicationCore.WIDTH/2-app.font.getSpaceWidth(), 4*ApplicationCore.HEIGHT/5);
+        //app.font.draw(app.batch, "Laser Challenge", ApplicationCore.WIDTH/2-app.font.getSpaceWidth(), 4*ApplicationCore.HEIGHT/5);
         app.batch.end();
     }
 
@@ -183,12 +184,12 @@ public class MainMenuScreen implements Screen{
      * @param button
      */
     static void previewButton(TextButton button, Color basicColor) {
-        if (button.isOver()) button.setColor(.85f, .25f, .25f, .3f);
+        if (button.isOver()) button.setColor(.85f, .25f, .25f, 1f);
         if (!button.isOver()) button.setColor(basicColor);
     }
 
     static void pressedButton(TextButton button){
-        if (button.isPressed()) button.setColor(.90f, .25f, .25f, .7f);
+        if (button.isPressed()) button.setColor(.90f, .25f, .25f, 1f);
     }
 
     private void update(float delta){
@@ -225,7 +226,7 @@ public class MainMenuScreen implements Screen{
 
         @Override
         public void clicked(InputEvent event, float x, float y){
-            MainMenuScreen.this.app.setScreen(new LevelChoice(MainMenuScreen.this.app));
+            MainMenuScreen.this.app.setScreen(new BoardScreen(MainMenuScreen.this.app));
         }
     }
 }

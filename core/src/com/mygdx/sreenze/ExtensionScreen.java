@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.CheckBox;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
@@ -56,6 +57,7 @@ public class ExtensionScreen implements Screen {
         colorExtensionBox.setPosition((this.app.WIDTH/4),
                 (3*(this.app.HEIGHT-backButton.getHeight())/4 - colorExtensionBox.getHeight())+backButton.getHeight());
         stage.addActor(colorExtensionBox);
+        Label descColor;
 
         loginExtensionBox = new CheckBox("Activate login extension", this.app.getSkin());
         loginExtensionBox.setPosition((this.app.WIDTH/4),
