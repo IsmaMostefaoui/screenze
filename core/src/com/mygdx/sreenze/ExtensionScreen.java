@@ -52,10 +52,15 @@ public class ExtensionScreen implements Screen {
 
         colorExtensionBox = new CheckBox("Activate color extension", this.app.getSkin());
         //TODO Factoriser les positions
-        colorExtensionBox.setPosition((this.app.WIDTH/4),
-                (3*(this.app.HEIGHT-backButton.getHeight())/4 - colorExtensionBox.getHeight())+backButton.getHeight());
+        colorExtensionBox.setPosition((ApplicationCore.WIDTH/4),
+                (3*(ApplicationCore.HEIGHT-backButton.getHeight())/4 - colorExtensionBox.getHeight())+backButton.getHeight());
         stage.addActor(colorExtensionBox);
+
         Label descColor;
+        descColor = new Label("Ceci est un texte pour décrire une extension test test test test test test test test test test test test test testtest test ", app.getSkin());
+        descColor.setPosition(ApplicationCore.WIDTH/4,
+                3*(ApplicationCore.HEIGHT-backButton.getHeight())/4 - descColor.getHeight()*2+backButton.getHeight());
+        stage.addActor(descColor);
 
         loginExtensionBox = new CheckBox("Activate login extension", this.app.getSkin());
         loginExtensionBox.setPosition((this.app.WIDTH/4),
@@ -79,15 +84,14 @@ public class ExtensionScreen implements Screen {
 
         stage.draw();
         this.update(delta);
-
-        updateCheckBoxText();
+        //updateCheckBoxText();
 
         MainMenuScreen.previewButton(backButton, basicButtonColor);
         MainMenuScreen.pressedButton(backButton);
     }
 
     /**
-     * Allow one only instance of the Extension Screen.
+     * Allow one only one instance of the Extension Screen.
      * @param app
      * @return
      */

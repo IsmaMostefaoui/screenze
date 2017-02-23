@@ -1,14 +1,18 @@
 package com.mygdx.sreenze;
 
+import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 
 import java.util.ArrayList;
@@ -20,10 +24,12 @@ public class LevelChoice implements Screen {
 
     Color basicButtonColor;
     TextButton backButton;
+    Label nameOfScreen;
 
     Table levelTable;
 
     int numberOfLevel;
+    int levelByRow;
     ArrayList<TextButton> levelList;
 
     final int LVL_BTN_WIDTH = 50;
@@ -39,16 +45,39 @@ public class LevelChoice implements Screen {
         this.stage = new Stage(new FitViewport(app.WIDTH, app.HEIGHT, app.camera));
         Gdx.input.setInputProcessor(stage);
 
+        nameOfScreen = new Label("Welcome to the Level Choice", this.app.getSkin());
+        nameOfScreen.setPosition(ApplicationCore.WIDTH/2-nameOfScreen.getWidth(), 4*ApplicationCore.HEIGHT/5);
+        nameOfScreen.setStyle(
+                new Label.LabelStyle(new BitmapFont(Gdx.files.internal("misc/laser_rod.fnt")),
+                        Color.BLACK));
+        stage.addActor(nameOfScreen);
+
+        levelTable = new Table();
+        levelTable.setWidth(stage.getWidth());
+        levelTable.align(Align.center|Align.top);
+
         levelList = new ArrayList<TextButton>();
-        numberOfLevel = 5;
+        numberOfLevel = 20;
+        levelByRow = 10;
         for (int i = 0; i < numberOfLevel; i++){
-            levelList.add(new TextButton(0+""+(i+1), app.getSkin()));
-            levelList.get(i).setPosition(25 + (i*LVL_BTN_WIDTH+stage.getWidth()/numberOfLevel),
-                        stage.getHeight()/2-LVL_BTN_HEIGHT/2);
-            levelList.get(i).setWidth(LVL_BTN_WIDTH);
-            levelList.get(i).setHeight(LVL_BTN_HEIGHT);
-            stage.addActor(levelList.get(i));
+            if (i < 9){
+                levelList.add(new TextButton(0+""+(i+1), app.getSkin()));
+            }else{
+                levelList.add(new TextButton(""+(i+1), app.getSkin()));
+            }
+            levelList.get(i).addListener(new ClickListener(){
+                @Override
+                public void clicked(InputEvent event, float x, float y){
+                    LevelChoice.this.app.setScreen(new BoardScreen(LevelChoice.this.app, "levels/levelTest.tmx"));
+                }
+            });
+            //levelList.get(i).setPosition(25 + (i*LVL_BTN_WIDTH+stage.getWidth()/numberOfLevel),
+                        //stage.getHeight()/2-LVL_BTN_HEIGHT/2);
+            initialize(levelList.get(i), i);
         }
+        levelTable.setPosition(0, Gdx.graphics.getHeight());
+        levelTable.padTop((stage.getHeight()/2)-((numberOfLevel/levelByRow) + (numberOfLevel-1)*MainMenuScreen.PAD_HEIGHT)/2);
+        stage.addActor(levelTable);
 
         //init back button
         backButton = new TextButton("Back", this.app.getSkin());
@@ -64,27 +93,26 @@ public class LevelChoice implements Screen {
                 LevelChoice.this.app.setScreen(new MainMenuScreen(LevelChoice.this.app));
             }
         });
-
-
     }
 
     /**
      * Initialize a button at the position (x, y) with width and height by default (BUTTON_WIDTH and BUTTON_HEIGHà
      * @param button the button to initialize
-     * @param x the coordinate x of the position
-     * @param y the coordinate y of the position
      */
-    private void initialize(TextButton button, float x, float y){
-        button.setPosition(x, y);
-        levelTable.add(button).padBottom(MainMenuScreen.PAD_HEIGHT)
-                .width(MainMenuScreen.BUTTON_WIDTH).height(MainMenuScreen.BUTTON_HEIGHT);
-        //passe a la ligne de la table pour ajouter le prochain bouton
-        levelTable.row();
+    private void initialize(TextButton button, int lvl){
+        if (lvl % levelByRow == 0){
+            levelTable.row();
+        }
+        levelTable.add(button).padBottom(MainMenuScreen.PAD_HEIGHT).padRight(MainMenuScreen.PAD_HEIGHT)
+                .width(LVL_BTN_WIDTH).height(LVL_BTN_HEIGHT);
+    }
+
+    public void goToLevel(String level){
+        LevelChoice.this.app.setScreen(new BoardScreen(LevelChoice.this.app, level));
     }
 
     @Override
     public void show() {
-
     }
 
     @Override
@@ -99,7 +127,6 @@ public class LevelChoice implements Screen {
         MainMenuScreen.pressedButton(backButton);
 
         app.batch.begin();
-        app.font.draw(app.batch, "Bienvenue dans le choix de niveau", app.WIDTH/2, app.HEIGHT/2);
         app.batch.end();
     }
 

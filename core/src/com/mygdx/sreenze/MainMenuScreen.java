@@ -66,22 +66,22 @@ public class MainMenuScreen implements Screen{
 
         //création des boutons
         playButton = new TextButton("PLAY", this.app.getSkin());
-        this.initialize(playButton,10,450);
+        this.initialize(playButton);
         playButton.addListener(tlsl);
 
         //recup color de base
         colorNotOver = new Color(playButton.getColor());
 
         practiceButton = new TextButton("PRACTICE", this.app.getSkin());
-        this.initialize(practiceButton, 10,375);
+        this.initialize(practiceButton);
         practiceButton.addListener(tlsl);
 
         loadButton = new TextButton("LOAD", this.app.getSkin());
-        this.initialize(loadButton,10,300);
+        this.initialize(loadButton);
         loadButton.addListener(tlsl);
 
         extensionButton = new TextButton("EXTENSIONS", this.app.getSkin());
-        this.initialize(extensionButton,10,225);
+        this.initialize(extensionButton);
         extensionButton.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y){
@@ -90,7 +90,7 @@ public class MainMenuScreen implements Screen{
         });
 
         helpButton = new TextButton("HELP", this.app.getSkin());
-        this.initialize(helpButton,10,150);
+        this.initialize(helpButton);
         helpButton.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y){
@@ -105,7 +105,7 @@ public class MainMenuScreen implements Screen{
         });
 
         quitButton = new TextButton("QUIT", this.app.getSkin());
-        this.initialize(quitButton,10,75);
+        this.initialize(quitButton);
         quitButton.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y){
@@ -120,13 +120,10 @@ public class MainMenuScreen implements Screen{
     }
 
     /**
-     * Initialize a button at the position (x, y) with width and height by default (BUTTON_WIDTH and BUTTON_HEIGHà
+     * Initialize a button with width and height by default (BUTTON_WIDTH and BUTTON_HEIGH)
      * @param button the button to initialize
-     * @param x the coordinate x of the position
-     * @param y the coordinate y of the position
      */
-    private void initialize(TextButton button, float x, float y){
-        button.setPosition(x, y);
+    private void initialize(TextButton button){
         buttonTable.add(button).padBottom(PAD_HEIGHT).width(BUTTON_WIDTH).height(BUTTON_HEIGHT);
         //passe a la ligne de la table pour ajouter le prochain bouton
         buttonTable.row();
@@ -226,7 +223,7 @@ public class MainMenuScreen implements Screen{
 
         @Override
         public void clicked(InputEvent event, float x, float y){
-            MainMenuScreen.this.app.setScreen(new BoardScreen(MainMenuScreen.this.app));
+            MainMenuScreen.this.app.setScreen(new LevelChoice(MainMenuScreen.this.app));
         }
     }
 }
