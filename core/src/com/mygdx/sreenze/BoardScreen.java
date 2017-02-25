@@ -37,10 +37,12 @@ public class BoardScreen implements Screen{
 
         basicButtonColor = new Color(backButton.getColor());
 
+
+
         backButton.setWidth(MainMenuScreen.BUTTON_WIDTH);
         backButton.setHeight(MainMenuScreen.BUTTON_HEIGHT);
-        backButton.setPosition(backButton.getX()+stage.getWidth()/100,
-                backButton.getY()+stage.getHeight()/100);
+        backButton.setPosition(stage.getCamera().position.x-stage.getCamera().viewportWidth,
+                stage.getCamera().position.y+stage.getCamera().viewportHeight);
         stage.addActor(backButton);
         backButton.addListener(new ClickListener(){
             @Override
@@ -60,11 +62,12 @@ public class BoardScreen implements Screen{
         Gdx.gl.glClearColor(.25f, .25f, .25f, 1f);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
+        orthMap.setView((OrthographicCamera)stage.getCamera());
+        orthMap.render();
+
         stage.draw();
         stage.act(delta);
         stage.getCamera().update();
-        orthMap.setView((OrthographicCamera)stage.getCamera());
-        orthMap.render();
 
         MainMenuScreen.previewButton(backButton, basicButtonColor);
         MainMenuScreen.pressedButton(backButton);

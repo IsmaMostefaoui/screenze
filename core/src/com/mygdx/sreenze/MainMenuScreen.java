@@ -26,7 +26,7 @@ public class MainMenuScreen implements Screen{
     final ApplicationCore app;
 
     private Stage stage;
-    Table buttonTable;
+    private Table buttonTable;
     private Image img;
 
     private final int WIDTH_IMG = 250;
@@ -37,8 +37,8 @@ public class MainMenuScreen implements Screen{
 
     static final int PAD_HEIGHT = 10;
 
-    TextButton playButton, practiceButton, loadButton, extensionButton, helpButton, quitButton;
-    Color colorNotOver;
+    private TextButton playButton, practiceButton, loadButton, extensionButton, helpButton, quitButton;
+    private Color colorNotOver;
 
     /**
      * Default Constructor
