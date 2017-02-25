@@ -13,10 +13,9 @@ public class ApplicationCore extends Game {
 	BitmapFont font;
 
 	public static final float WIDTH = 1280;
+	//public static final float WIDTH = 1920;
 	public static final float HEIGHT = 720;
-
-	public static final float V_WIDTH = 400;
-	public static final float V_HEIGHT = 480;
+	//public static final float HEIGHT = 1080;
 
 	private Skin skin;
 
@@ -27,7 +26,7 @@ public class ApplicationCore extends Game {
 		camera.setToOrtho(false, WIDTH, HEIGHT);
 		font = new BitmapFont(Gdx.files.internal("misc/laser_rod.fnt"));
 		skin = new Skin(Gdx.files.internal("defaultskin/defaultskin.json"));
-		this.setScreen(new MainMenuScreen(this));
+		this.setScreen(new LoadingScreen(this));
 	}
 
 	@Override

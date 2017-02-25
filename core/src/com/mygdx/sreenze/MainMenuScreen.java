@@ -26,7 +26,7 @@ public class MainMenuScreen implements Screen{
     final ApplicationCore app;
 
     private Stage stage;
-    Table buttonTable;
+    private Table buttonTable;
     private Image img;
 
     private final int WIDTH_IMG = 250;
@@ -36,6 +36,7 @@ public class MainMenuScreen implements Screen{
     static final int BUTTON_HEIGHT = 50;
 
     static final int PAD_HEIGHT = 10;
+
 
     TextButton playButton, practiceButton, loadButton, extensionButton, helpButton, quitButton;
     Color colorNotOver;
@@ -68,9 +69,10 @@ public class MainMenuScreen implements Screen{
         playButton = new TextButton("PLAY", this.app.getSkin());
         this.initialize(playButton);
         playButton.addListener(tlsl);
+        playButton.setColor(new Color(.925f, 941f, .945f, 1));
 
         //recup color de base
-        colorNotOver = new Color(playButton.getColor());
+        colorNotOver = new Color(.925f, 941f, .945f, 1);
 
         practiceButton = new TextButton("PRACTICE", this.app.getSkin());
         this.initialize(practiceButton);
@@ -139,7 +141,7 @@ public class MainMenuScreen implements Screen{
      * @param image the image to move
      */
     private void animation(Image image) {
-        image.setPosition(ApplicationCore.WIDTH / 2 - (WIDTH_IMG /2), ApplicationCore.HEIGHT + 100);
+        image.setPosition(stage.getWidth() / 2 - (WIDTH_IMG /2), stage.getHeight() + 100);
         //anmiation image apparition
         image.addAction(sequence(alpha(0f), scaleTo(.1f,.1f),
                 parallel(fadeIn(2f, Interpolation.pow2),
@@ -150,7 +152,7 @@ public class MainMenuScreen implements Screen{
 
     @Override
     public void render(float delta) {
-        Gdx.gl.glClearColor(.25f, .25f, .25f, 1f);
+        Gdx.gl.glClearColor(.160f, .300f, 1f, .7f);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT |
                 (Gdx.graphics.getBufferFormat().coverageSampling?GL20.GL_COVERAGE_BUFFER_BIT_NV:0));
 

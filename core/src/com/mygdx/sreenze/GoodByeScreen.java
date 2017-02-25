@@ -23,7 +23,7 @@ public class GoodByeScreen implements Screen{
 
     public GoodByeScreen(final ApplicationCore app){
         this.app = app;
-        stage = new Stage(new FitViewport(app.WIDTH, app.HEIGHT, app.camera));
+        stage = new Stage(new FitViewport(ApplicationCore.WIDTH, ApplicationCore.HEIGHT, app.camera));
         Gdx.input.setInputProcessor(stage);
         goodbye = new Label("GoodBye !", this.app.getSkin());
         stage.addActor(goodbye);
@@ -34,12 +34,13 @@ public class GoodByeScreen implements Screen{
 
     @Override
     public void show() {
-        System.exit(0);
+        this.dispose();
+        System.exit(-1);
     }
 
     @Override
     public void render(float delta) {
-        Gdx.gl.glClearColor(.25f, .25f, .25f, 1f);
+        Gdx.gl.glClearColor(.160f, .300f, 1f, .7f);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         this.update(delta);
         stage.draw();
