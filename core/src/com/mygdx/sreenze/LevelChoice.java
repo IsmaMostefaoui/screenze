@@ -57,8 +57,8 @@ public class LevelChoice implements Screen {
         levelTable.align(Align.center|Align.top);
 
         levelList = new ArrayList<TextButton>();
-        numberOfLevel = 20;
-        levelByRow = 10;
+        numberOfLevel = 10;
+        levelByRow = 5;
         for (int i = 0; i < numberOfLevel; i++){
             if (i < 9){
                 levelList.add(new TextButton(0+""+(i+1), app.getSkin()));

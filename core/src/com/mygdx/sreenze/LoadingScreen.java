@@ -62,9 +62,11 @@ public class LoadingScreen implements Screen{
         stage.draw();
     }
 
-    private void animation(){
+    private void animation() {
         background.addAction(sequence(alpha(0f), fadeIn(.5f)));
-        homeText.addAction(sequence(alpha(0f), fadeIn(2f, Interpolation.pow2)));
+        homeText.addAction(sequence(alpha(0f), fadeIn(.7f), fadeOut(.7f), fadeIn(.7f), fadeOut(.7f),
+                fadeIn(.7f), fadeOut(.7f), fadeIn(.7f), fadeOut(.7f), fadeIn(.7f), fadeOut(.7f),
+                fadeIn(.7f), fadeOut(.7f), fadeIn(.7f), fadeOut(.7f), fadeIn(.7f), fadeOut(.7f)));
     }
 
     @Override
