@@ -37,9 +37,9 @@ public class MainMenuScreen implements Screen{
 
     static final int PAD_HEIGHT = 10;
 
+    private TextButton playButton, practiceButton, loadButton, extensionButton, helpButton, quitButton;
+    private Color colorNotOver;
 
-    TextButton playButton, practiceButton, loadButton, extensionButton, helpButton, quitButton;
-    Color colorNotOver;
 
     /**
      * Default Constructor

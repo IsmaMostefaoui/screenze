@@ -18,14 +18,16 @@ public class ExtensionScreen implements Screen {
     private static ExtensionScreen instance;
 
     final ApplicationCore app;
-    Stage stage;
+    private Stage stage;
 
-    CheckBox colorExtensionBox;
-    CheckBox loginExtensionBox;
-    CheckBox aiExtensionBox;
-    TextButton backButton;
+    private CheckBox colorExtensionBox;
+    private CheckBox loginExtensionBox;
+    private CheckBox aiExtensionBox;
+    private TextButton backButton;
 
-    Color basicButtonColor;
+    private Label descColor;
+
+    private Color basicButtonColor;
 
     /**
      * Default Constructor
@@ -56,10 +58,11 @@ public class ExtensionScreen implements Screen {
                 (3*(ApplicationCore.HEIGHT-backButton.getHeight())/4 - colorExtensionBox.getHeight())+backButton.getHeight());
         stage.addActor(colorExtensionBox);
 
-        Label descColor;
-        descColor = new Label("Ceci est un texte pour décrire une extension test test test test test test test test test test test test test testtest test ", app.getSkin());
+        descColor = new Label("Ceci est un texte pour décrire une extension test test test test test test test test test test test test test testtest test Ceci est un texte pour décrire une extension test test test test test test test test test test test test test testtest test", app.getSkin());
+        descColor.setWidth(stage.getWidth()/2);
         descColor.setPosition(ApplicationCore.WIDTH/4,
-                3*(ApplicationCore.HEIGHT-backButton.getHeight())/4 - descColor.getHeight()*2+backButton.getHeight());
+                3*(ApplicationCore.HEIGHT-backButton.getHeight())/4 - descColor.getHeight()*3+backButton.getHeight());
+        descColor.setWrap(true);
         stage.addActor(descColor);
 
         loginExtensionBox = new CheckBox("Activate login extension", this.app.getSkin());
