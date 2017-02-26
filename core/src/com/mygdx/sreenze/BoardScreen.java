@@ -1,9 +1,7 @@
 package com.mygdx.sreenze;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -13,11 +11,8 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.List;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.ui.Widget;
+import com.badlogic.gdx.scenes.scene2d.ui.List;
 import com.badlogic.gdx.scenes.scene2d.utils.DragListener;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 
@@ -47,7 +42,27 @@ public class BoardScreen implements Screen{
         this.dl = new MyDragListener();
 
         this.stage = new Stage(new FitViewport(ApplicationCore.WIDTH, ApplicationCore.HEIGHT, app.camera));
-        this.boardPiece.get(0).addListener(dl);
+        ;
+        this.boardPiece.get(0).addListener(new DragListener() {
+
+            @Override
+            public void touchDragged(InputEvent event, float x, float y, int pointer) {
+                boardPiece.get(0).moveBy(x,y);
+            }
+
+            @Override
+            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+                System.out.println(Math.floor(boardPiece.get(0).getX()/75) + ", " + Math.floor(boardPiece.get(0).getY()/75));
+            }
+
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                System.out.println(Math.floor(boardPiece.get(0).getX()/75) + ", " + Math.floor(boardPiece.get(0).getY()/75));
+                return true;
+            }
+
+
+        });
         this.map = new TmxMapLoader().load(level);
         this.orthMap = new OrthogonalTiledMapRenderer(map);
         ((OrthographicCamera) stage.getCamera()).translate((-stage.getWidth()/2)+75*4, (-stage.getHeight()/2)+75*4);
@@ -66,6 +81,7 @@ public class BoardScreen implements Screen{
 
     @Override
     public void show() {
+
         Gdx.input.setInputProcessor(stage);
         for (int i=0; i < boardPiece.size(); i++){
             boardPiece.get(i).setSize(75,75);
@@ -122,7 +138,8 @@ public class BoardScreen implements Screen{
 
         @Override
         public void touchDragged(InputEvent e, float x, float y, int pointer){
-            boardPiece.get(0).moveBy(x, y);
+            boardPiece.get(0).setOrigin(Gdx.input.getX(), Gdx.input.getY());
+            boardPiece.get(0).moveBy(x - boardPiece.get(0).getWidth() / 2, y - boardPiece.get(0).getHeight() / 2);
         }
 
         @Override
@@ -134,7 +151,7 @@ public class BoardScreen implements Screen{
         @Override
         public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
             System.out.println(x+ ", " + y);
-            boardPiece.get(0).moveBy(-(x%75), -(y%75));
+
         }
     }
 }
