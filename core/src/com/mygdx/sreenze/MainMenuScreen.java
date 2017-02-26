@@ -116,7 +116,7 @@ public class MainMenuScreen implements Screen{
         });
 
         buttonTable.setPosition(0, Gdx.graphics.getHeight());
-        buttonTable.padTop((stage.getHeight()/2)-(6*BUTTON_HEIGHT + 5*PAD_HEIGHT)/2);
+        buttonTable.padTop((2*stage.getHeight()/3)-(6*BUTTON_HEIGHT + 5*PAD_HEIGHT)/2);
         stage.addActor(buttonTable);
 
     }

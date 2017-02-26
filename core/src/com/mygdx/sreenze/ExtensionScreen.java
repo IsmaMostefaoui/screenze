@@ -54,14 +54,23 @@ public class ExtensionScreen implements Screen {
 
         colorExtensionBox = new CheckBox("Activate color extension", this.app.getSkin());
         //TODO Factoriser les positions
-        colorExtensionBox.setPosition((ApplicationCore.WIDTH/4),
+        colorExtensionBox.setPosition((ApplicationCore.WIDTH/9),
                 (3*(ApplicationCore.HEIGHT-backButton.getHeight())/4 - colorExtensionBox.getHeight())+backButton.getHeight());
         stage.addActor(colorExtensionBox);
 
-        descColor = new Label("Ceci est un texte pour décrire une extension test test test test test test test test test test test test test testtest test Ceci est un texte pour décrire une extension test test test test test test test test test test test test test testtest test", app.getSkin());
-        descColor.setWidth(stage.getWidth()/2);
-        descColor.setPosition(ApplicationCore.WIDTH/4,
-                3*(ApplicationCore.HEIGHT-backButton.getHeight())/4 - descColor.getHeight()*3+backButton.getHeight());
+        descColor = new Label("This game extension allows for lasers beams with different colours and intensities." +
+                "The basic laser colours are red, green and blue. They require a specific type of source block emitting" +
+                "laser beams of that particular colour. There is also a white laser beam, that is emitted by a multicolour" +
+                "source block. A white laser beam actually carries the three colour components (red, green and blue) and can" +
+                "be processed by any block accepting the corresponding colour."+
+                "Laser beams become less intense in function of the distance they have travelled. The intensity of a" +
+                "laser beam (a value between 0 and 100). Blocks do" +
+                "not process laser beams with an intensity lower than a minimal threshold of 10% of its maximal" +
+                "value. To succeed the level, target blocks also require the incoming laser beam to have at least the minimal" +
+                "threshold for its intensity. Adding amplifers blocks, reducing blocks, filters blocks and converters blocks", app.getSkin());
+        descColor.setWidth(7*stage.getWidth()/9);
+        descColor.setPosition(ApplicationCore.WIDTH/9,
+                3*(ApplicationCore.HEIGHT-backButton.getHeight())/4 - 4*descColor.getHeight()+backButton.getHeight());
         descColor.setWrap(true);
         stage.addActor(descColor);
 

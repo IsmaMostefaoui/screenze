@@ -20,6 +20,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Widget;
 import com.badlogic.gdx.scenes.scene2d.utils.DragListener;
 import com.badlogic.gdx.utils.viewport.FitViewport;
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.*;
 
 import java.util.ArrayList;
 
@@ -122,19 +123,20 @@ public class BoardScreen implements Screen{
 
         @Override
         public void touchDragged(InputEvent e, float x, float y, int pointer){
+            //System.out.println("(" + x + ", " + y + ")");
             boardPiece.get(0).moveBy(x, y);
         }
 
         @Override
         public boolean touchDown(InputEvent e, float x, float y, int pointer, int button){
-            System.out.println(x + ", " + y);
             return true;
         }
 
         @Override
         public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
-            System.out.println(x+ ", " + y);
-            boardPiece.get(0).moveBy(-(x%75), -(y%75));
+            float xPos= (float)Math.floor(boardPiece.get(0).getX()/75);
+            float yPos = (float)Math.floor(boardPiece.get(0).getY()/75);
+            boardPiece.get(0).setPosition(xPos*75,  yPos*75);
         }
     }
 }
