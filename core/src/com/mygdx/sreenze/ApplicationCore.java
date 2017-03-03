@@ -13,9 +13,9 @@ public class ApplicationCore extends Game {
 	BitmapFont font;
 
 	//public static final float WIDTH = 1280;
-	public static final float WIDTH = 1920;
+	public static final float WIDTH = 1366;
 	//public static final float HEIGHT = 720;
-	public static final float HEIGHT = 1080;
+	public static final float HEIGHT = 768;
 
 	private Skin skin;
 
